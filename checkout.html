@@ -72,7 +72,7 @@
 <div class="xylophone" id="xylophone"></div>
 
    <p>Click below button to continue</p>
-   <p>👇👇👇</p>
+   <p class="blink">👇👇👇</p>
    <button><a href="endpage.html">Continue Here</a></button>
 
 <script>
@@ -104,10 +104,23 @@
     gainNode.connect(audioCtx.destination);
 
     oscillator.start();
+    // Make the note last longer (e.g., 900ms instead of 300ms)
     setTimeout(() => {
       oscillator.stop();
-    }, 300);
+    }, 900);
   }
+
+  let isMouseDown = false;
+
+  container.addEventListener('mousedown', () => {
+    isMouseDown = true;
+  });
+  container.addEventListener('mouseup', () => {
+    isMouseDown = false;
+  });
+  document.addEventListener('mouseup', () => {
+    isMouseDown = false;
+  });
 
   notes.forEach(note => {
     const key = document.createElement('div');
@@ -115,9 +128,7 @@
     key.style.backgroundColor = note.color;
     key.textContent = note.label;
     key.addEventListener('mousedown', () => {
-      // Visual feedback
       key.classList.add('playing');
-      // Play sound
       if (audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
@@ -127,6 +138,18 @@
       key.classList.remove('playing');
     });
     key.addEventListener('mouseleave', () => {
+      key.classList.remove('playing');
+    });
+    key.addEventListener('mouseenter', () => {
+      if (isMouseDown) {
+        key.classList.add('playing');
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        playSound(note.freq);
+      }
+    });
+    key.addEventListener('mouseout', () => {
       key.classList.remove('playing');
     });
     container.appendChild(key);

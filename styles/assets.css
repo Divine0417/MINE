@@ -1,5 +1,5 @@
 @media (max-width: 600px) {
-    .welcome, .name-page {
+    .welcome, .name-page, .video-page {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -53,9 +53,26 @@
 header, main{
     text-align: center;
 }
+.video-header {
+    font-family: "Josefin Sans", sans-serif;
+    color: blue;
+    margin: 20px 0;
+}
 .videos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    margin: 10px;
+    margin: 10px auto;
+    width: 100%;
+}
+#words {
+    font-family: "Teko", sans-serif;
+    color: rgb(16, 121, 39);
+    font-size: 1.2em;
+    margin: 10px 0;
+    border-bottom: 2px solid tomato;   
 }
 .dvideo {
     font-family: "Roboto", Verdana;

@@ -17,3 +17,15 @@ if (welcomeMsg) {
     welcomeMsg.textContent = `Welcome, ${name}! 🎉`;
   }
 }
+
+document.querySelectorAll('.music').forEach(musicDiv => {
+        const audio = musicDiv.querySelector('audio');
+        const playBtn = musicDiv.querySelector('.play-btn');
+        const pauseBtn = musicDiv.querySelector('.pause-btn');
+        playBtn.addEventListener('click', () => {
+          audio.play();
+        });
+        pauseBtn.addEventListener('click', () => {
+          audio.pause();
+        });
+      });

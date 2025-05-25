@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Omotayo Ayobami Oyedele">
+    <meta name="description" content="">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100..700&family=Port+Lligat+Sans&family=Roboto:wght@100..900&family=Teko:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Piano Page</title>
+    <link rel="icon" href="favicon/favicon.ico" type="image/x-icon">
+    <meta property="og:title" content="Chamber Directory - Find Trusted Businesses">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://divine017.github.io/MINE/chamber/images/logo.jpeg">
+    <meta property="og:url" content="https://divine017.github.io/wdd231/chamber/directory.html">
+    <meta property="og:description" content="">
+    <meta property="og:site_name" content="">
+    <style>
+  body {
+    font-family: sans-serif;
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 20px;
+    color: #fff;
+  }
+  h1 {
+    margin-bottom: 10px;
+  }
+  p {
+    max-width: 600px;
+    text-align: center;
+  }
+  .xylophone {
+    display: flex;
+    margin-top: 20px;
+  }
+  .key {
+    width: 40px;
+    height: 150px;
+    margin: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    user-select: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .key:active,
+  .key.playing {
+    transform: scale(0.98);
+    opacity: 0.7;
+  }
+  button {
+    background-color: aqua;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+}
+</style>
+</head>
+<body>
+<h1>Colorful Xylophone</h1>
+<p>Click on a key to play its sound. Enjoy the music!</p>
+<div class="xylophone" id="xylophone"></div>
+
+   <p>Click below button to continue</p>
+   <p>👇👇👇</p>
+   <button><a href="endpage.html">Continue Here</a></button>
+
+<script>
+  const notes = [
+    {label: 'C4', freq: 261.63, color: '#FF4C4C'},
+    {label: 'D4', freq: 293.66, color: '#FF8C4C'},
+    {label: 'E4', freq: 329.63, color: '#FFE44C'},
+    {label: 'F4', freq: 349.23, color: '#8CFF4C'},
+    {label: 'G4', freq: 392.00, color: '#4CFF8C'},
+    {label: 'A4', freq: 440.00, color: '#4C8CFF'},
+    {label: 'B4', freq: 493.88, color: '#8C4CFF'},
+    {label: 'C5', freq: 523.25, color: '#FF4CFF'}
+  ];
+
+  const container = document.getElementById('xylophone');
+
+  const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+  function playSound(freq) {
+    const oscillator = audioCtx.createOscillator();
+    const gainNode = audioCtx.createGain();
+
+    oscillator.type = 'sine';
+    oscillator.frequency.value = freq;
+
+    gainNode.gain.value = 0.2;
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+
+    oscillator.start();
+    setTimeout(() => {
+      oscillator.stop();
+    }, 300);
+  }
+
+  notes.forEach(note => {
+    const key = document.createElement('div');
+    key.className = 'key';
+    key.style.backgroundColor = note.color;
+    key.textContent = note.label;
+    key.addEventListener('mousedown', () => {
+      // Visual feedback
+      key.classList.add('playing');
+      // Play sound
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+      playSound(note.freq);
+    });
+    key.addEventListener('mouseup', () => {
+      key.classList.remove('playing');
+    });
+    key.addEventListener('mouseleave', () => {
+      key.classList.remove('playing');
+    });
+    container.appendChild(key);
+  });
+</script>
+<script>window.parent.postMessage({ action: "ready" }, "*"); 
+ 
+window.console = new Proxy(console, {
+  get(target, prop) {
+    if (['log', 'warn', 'error'].includes(prop)) {
+      return new Proxy(target[prop], {
+        apply(fn, thisArg, args) {
+          fn.apply(thisArg, args);
+          window.parent.postMessage({ action: 'console', 
+            type: prop, 
+            args: args.map((arg) => {
+              try {
+                return JSON.stringify(arg).replace(/^["']|["']$/g, '');
+              } catch (e) {
+                return arg;
+              }
+            }) 
+          }, '*');
+        }
+      });
+    }
+    return target[prop];
+  }
+});
+</script>
+</body>
+</html>

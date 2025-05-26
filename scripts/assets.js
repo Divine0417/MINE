@@ -29,3 +29,46 @@ document.querySelectorAll('.music').forEach(musicDiv => {
           audio.pause();
         });
       });
+      
+const audio = document.getElementById('loreen-audio');
+  const lyricsContainer = document.getElementById('loreen-lyrics');
+  const lyricLines = lyricsContainer.querySelectorAll('p[data-time]');
+
+  // Set active lyric line
+  function updateLyrics() {
+    const currentTime = audio.currentTime;
+
+    lyricLines.forEach((line, index) => {
+      const lineTime = parseFloat(line.getAttribute('data-time'));
+      const nextLineTime = index + 1 < lyricLines.length
+        ? parseFloat(lyricLines[index + 1].getAttribute('data-time'))
+        : Infinity;
+
+      if (currentTime >= lineTime && currentTime < nextLineTime) {
+        line.classList.add('active');
+      } else {
+        line.classList.remove('active');
+      }
+    });
+  }
+
+  audio.addEventListener('play', () => {
+    lyricsContainer.style.display = 'block';
+  });
+
+  audio.addEventListener('pause', () => {
+    if (audio.ended || audio.paused) return;
+    lyricsContainer.style.display = 'none';
+  });
+
+  audio.addEventListener('ended', () => {
+    lyricsContainer.style.display = 'none';
+  });
+
+  // Watch the lyrics while song plays
+  audio.addEventListener('timeupdate', updateLyrics);
+
+  // Show lyrics if already playing on reload
+  if (!audio.paused && !audio.ended) {
+    lyricsContainer.style.display = 'block';
+  }

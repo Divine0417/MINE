@@ -24,21 +24,53 @@
         <h1>Just the last page... Thanks for being patience.</h1>
         <p>I might not be able to guess your favorite music🎶 right but I go try small.</p>
         <p>But at least pay attention to the lyrics😜🌹❤💕</p>
-
         <p>Click the play button.</p>
         <p class="blink">👇👇👇</p>
     </header>
 
     <main class="music-container">
         <div class="music">
-            <audio src="musics/LoreenTattoo.mp3"></audio>
+            <audio id="loreen-audio" src="musics/LoreenTattoo.mp3"></audio>
             <p class="play-btn">▶</p>
             <p class="pause-btn">⏸</p>
+            <div id="loreen-lyrics" class="lyrics" style="margin-top:10px; color:#0e12e4; font-family:'Josefin Sans',sans-serif; font-size:1.1em;">
+                <p><strong>Lyrics: Loreen - Tattoo</strong></p>
+                <p data-time="0">I don't wanna go</p>
+                <p data-time="4">But baby, we both know</p>
+                <p data-time="8">This is not our time</p>
+                <p data-time="11">It's time to say goodbye</p>
+                <p data-time="15">Until we meet again</p>
+                <p data-time="18">'Cause this is not the end</p>
+                <p data-time="22">It will come a day</p>
+                <p data-time="26">When we will find our way</p>
+                <p data-time="30">Violins playing and the angels crying</p>
+                <p data-time="35">When the stars align, then I'll be there</p>
+                <p data-time="40">Oh, I don't care about them all</p>
+                <p data-time="44">'Cause all I want is to be loved</p>
+                <p data-time="48">And all I care about is you</p>
+                <p data-time="52">You're stuck on me like a tattoo</p>
+                <p data-time="56">Oh, I don't care about the pain</p>
+                <p data-time="60">I'll walk through fire and through rain</p>
+                <p data-time="64">Just to get closer to you</p>
+                <p data-time="68">You're stuck on me like a tattoo</p>
+            </div>
         </div>
         <div class="music">
-            <audio src="musics/LoreenTattoo.mp3"></audio>
-            <p class="play-btn">▶</p>
-            <p class="pause-btn">⏸</p>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2WnAKZefdRHxtBEkRjFOHC?utm_source=generator" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <div class="lyrics anyone-lyrics" style="margin-top:10px; color:#1c05e7; font-family:'Josefin Sans',sans-serif; font-size:1.1em;">
+                <p><strong>Lyrics: Justin Bieber - Anyone</strong></p>
+                <p>Dancing on the edge, 'bout to take it too far</p>
+                <p>It's messing with my head, how I mess with your heart</p>
+                <p>If you wake up in your bed, alone in the dark</p>
+                <p>I'm sorry, gotta leave before you love me</p>
+                <p>I'll be the one, if you want me to</p>
+                <p>Anywhere, whenever, I'll be there</p>
+                <p>You're the only one I'll ever love</p>
+                <p>Yeah, you, if it's not you, it's not anyone</p>
+                <p>Looking back on my life, you're the only good I've ever done</p>
+                <p>Yeah, you, if it's not you, it's not anyone</p>
+                <p>Not anyone</p>
+            </div>
         </div>
         <div class="music">
             <iframe width="320" height="180" src="https://www.youtube.com/embed/ipZ-1nZh1co?si=7sgHQpgzq7p_y52R" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
@@ -64,5 +96,52 @@
             <p class="pause-btn">⏸</p>
         </div>
     </main>
+    <script>
+        const audio = document.getElementById('loreen-audio');
+        const lyricsContainer = document.getElementById('loreen-lyrics');
+        const lyricLines = lyricsContainer.querySelectorAll('p[data-time]');
+
+        // Set active lyric line
+        function updateLyrics() {
+            const currentTime = audio.currentTime;
+
+            lyricLines.forEach((line, index) => {
+                const lineTime = parseFloat(line.getAttribute('data-time'));
+                const nextLineTime = index + 1 < lyricLines.length
+                    ? parseFloat(lyricLines[index + 1].getAttribute('data-time'))
+                    : Infinity;
+
+                if (currentTime >= lineTime && currentTime < nextLineTime) {
+                    line.classList.add('active');
+                } else {
+                    line.classList.remove('active');
+                }
+            });
+        }
+
+        audio.addEventListener('play', () => {
+            lyricsContainer.style.display = 'block';
+        });
+
+        audio.addEventListener('pause', () => {
+            if (!audio.ended && audio.paused) {
+                lyricsContainer.style.display = 'none';
+            }
+        });
+
+        audio.addEventListener('ended', () => {
+            lyricsContainer.style.display = 'none';
+        });
+
+        // Watch the lyrics while song plays
+        audio.addEventListener('timeupdate', updateLyrics);
+
+        // Show lyrics if already playing on reload
+        if (!audio.paused && !audio.ended) {
+            lyricsContainer.style.display = 'block';
+        }
+    </script>
+</body>
+
 </body>
 </html>

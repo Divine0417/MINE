@@ -53,37 +53,52 @@
                 <p data-time="60">I'll walk through fire and through rain</p>
                 <p data-time="64">Just to get closer to you</p>
                 <p data-time="68">You're stuck on me like a tattoo</p>
+
             </div>
         </div>
         <div class="music">
-            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2WnAKZefdRHxtBEkRjFOHC?utm_source=generator" width="100%" height="352" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-            <div class="lyrics anyone-lyrics" style="margin-top:10px; color:#1c05e7; font-family:'Josefin Sans',sans-serif; font-size:1.1em;">
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2WnAKZefdRHxtBEkRjFOHC?utm_source=generator" width="100%" height="300" frameborder="0" allowfullscreen="" allow="autoplay; encrypted-media; loading="lazy"></iframe>
+            <div id="anyone-lyrics" class="anyone-lyrics" style="margin-top:10px; color:#1c05e7; font-family:'Josefin Sans',sans-serif; font-size:1.1em;">
                 <p><strong>Lyrics: Justin Bieber - Anyone</strong></p>
-                <p>Dancing on the edge, 'bout to take it too far</p>
-                <p>It's messing with my head, how I mess with your heart</p>
-                <p>If you wake up in your bed, alone in the dark</p>
-                <p>I'm sorry, gotta leave before you love me</p>
-                <p>I'll be the one, if you want me to</p>
-                <p>Anywhere, whenever, I'll be there</p>
-                <p>You're the only one I'll ever love</p>
-                <p>Yeah, you, if it's not you, it's not anyone</p>
-                <p>Looking back on my life, you're the only good I've ever done</p>
-                <p>Yeah, you, if it's not you, it's not anyone</p>
-                <p>Not anyone</p>
+                <p data-time="0">Dancing on the edge, 'bout to take it too far</p>
+                <p data-time="5">It's messing with my head, how I mess with your heart</p>
+                <p data-time="10">If you wake up in your bed, alone in the dark</p>
+                <p data-time="15">I'm sorry, gotta leave before you love me</p>
+                <p data-time="20">You say that I'm the only one</p>
+                <p data-time="24">But I see the fire in your eyes</p>
+                <p data-time="28">And I'm not scared of what you'll become</p>
+                <p data-time="32">If I leave you behind</p>
+                <p data-time="36">I'll be the one, if you want me to</p>
+                <p data-time="40">Anywhere, whenever, I'll be there</p>
+                <p data-time="44">You're the only one I'll ever love</p>
+                <p data-time="48">Yeah, you, if it's not you, it's not anyone</p>
+                <p data-time="53">Looking back on my life, you're the only good I've ever done</p>
+                <p data-time="58">Yeah, you, if it's not you, it's not anyone</p>
+                <p data-time="63">Forever's not enough time to</p>
+                <p data-time="67">Love you the way that I want</p>
+                <p data-time="71">'Cause every morning I find you</p>
+                <p data-time="75">I fear the day that I don't</p>
+                <p data-time="79">I'll be the one, if you want me to</p>
+                <p data-time="83">Anywhere, whenever, I'll be there</p>
+                <p data-time="87">You're the only one I'll ever love</p>
+                <p data-time="91">Yeah, you, if it's not you, it's not anyone</p>
+                <p data-time="96">Looking back on my life, you're the only good I've ever done</p>
+                <p data-time="101">Yeah, you, if it's not you, it's not anyone</p>
+                <p data-time="106">It's not anyone, not anyone</p>
+                <p data-time="110">If it's not you, it's not anyone</p>
             </div>
         </div>
+
         <div class="music">
             <iframe width="320" height="180" src="https://www.youtube.com/embed/ipZ-1nZh1co?si=7sgHQpgzq7p_y52R" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
+
         <div class="music">
-            <audio src="musics/track4.mp3"></audio>
-            <p class="play-btn">▶</p>
-            <p class="pause-btn">⏸</p>
+            <iframe width="320" height="180" src="https://www.youtube.com/embed/7h3xjBrtAQs?si=0rnOnCWO4J8krpTc" title="YouTube video player" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
+
         <div class="music">
-            <audio src="musics/track5.mp3"></audio>
-            <p class="play-btn">▶</p>
-            <p class="pause-btn">⏸</p>
+            <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/1A5ZBWvo9on4M6lxFS99l3?utm_source=generator" width="100%" height="300" frameBorder="0" allowfullscreen="" allow="autoplay; encrypted-media; loading="lazy"></iframe>
         </div>
         <div class="music">
             <audio src="musics/track6.mp3"></audio>
@@ -95,53 +110,8 @@
             <p class="play-btn">▶</p>
             <p class="pause-btn">⏸</p>
         </div>
+
+        <p>Feeeel free and tell me what to add...</p>
     </main>
-    <script>
-        const audio = document.getElementById('loreen-audio');
-        const lyricsContainer = document.getElementById('loreen-lyrics');
-        const lyricLines = lyricsContainer.querySelectorAll('p[data-time]');
-
-        // Set active lyric line
-        function updateLyrics() {
-            const currentTime = audio.currentTime;
-
-            lyricLines.forEach((line, index) => {
-                const lineTime = parseFloat(line.getAttribute('data-time'));
-                const nextLineTime = index + 1 < lyricLines.length
-                    ? parseFloat(lyricLines[index + 1].getAttribute('data-time'))
-                    : Infinity;
-
-                if (currentTime >= lineTime && currentTime < nextLineTime) {
-                    line.classList.add('active');
-                } else {
-                    line.classList.remove('active');
-                }
-            });
-        }
-
-        audio.addEventListener('play', () => {
-            lyricsContainer.style.display = 'block';
-        });
-
-        audio.addEventListener('pause', () => {
-            if (!audio.ended && audio.paused) {
-                lyricsContainer.style.display = 'none';
-            }
-        });
-
-        audio.addEventListener('ended', () => {
-            lyricsContainer.style.display = 'none';
-        });
-
-        // Watch the lyrics while song plays
-        audio.addEventListener('timeupdate', updateLyrics);
-
-        // Show lyrics if already playing on reload
-        if (!audio.paused && !audio.ended) {
-            lyricsContainer.style.display = 'block';
-        }
-    </script>
-</body>
-
 </body>
 </html>

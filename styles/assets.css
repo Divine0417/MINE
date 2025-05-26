@@ -8,7 +8,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background-color: rgb(122, 120, 120);
+        background-color: rgb(231, 230, 230);
         font-family: "Josefin Sans", sans-serif;
         color: var(--primary-color);
         text-align: center;
@@ -109,25 +109,23 @@
 
     .music {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: center;
         border-bottom: 2px solid tomato;
+        margin: 20px;
     }
 
-    .play-btn,
-    .pause-btn {
-        font-size: 30px;
-        margin: 10px;
+    .play-btn, .pause-btn {
         cursor: pointer;
-        transition: background 0.2s, color 0.2s;
-        border-bottom: 2px solid blue;
+        font-size: 2rem;
+        margin: 0 10px;
+        display: inline-block;
+        color: #0e1cdd;
+        transition: transform 0.2s;
     }
-
-    .play-btn:hover,
-    .pause-btn:hover {
-        background: #e0f7fa;
-        color: #00796b;
-        border-radius: 20%;
+    .play-btn:hover, .pause-btn:hover {
+      transform: scale(1.2);
+      color: #00796b;
     }
 
     button {
@@ -162,8 +160,35 @@
     }
 
     #loreen-lyrics p.active {
-        color: #0e12e4;
-        font-weight: bold;
-        font-size: 1.2em;
+    color: #2a06f9;
+    font-weight: bold;
+    background-color: rgba(255,255,255,0.1);
+    border-left: 4px solid #0905f1;
+    padding-left: 10px;
     }
+
+    strong {
+        color: #f50808;
+        font-weight: bold;
+    }
+
+    .anyone-lyrics p {
+    opacity: 0.5;
+    transition: all 0.5s ease-in-out;
+    }
+    
+    .anyone-lyrics p.active {
+        font-weight: bold;
+        color: #ff007f;
+        opacity: 1;
+        transform: scale(1.05);
+        animation: pulse 0.7s ease;
+    }
+    
+    @keyframes pulse {
+        0% { opacity: 0.5; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.1); }
+        100% { opacity: 1; transform: scale(1.05); }
+    }
+
 }
